@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LasersFeelingsCard from '../../components/LasersFeelingsCard';
+import LasersFeelingsCard from '@components/LasersFeelingsCard';
 
 import * as S from './styles.js';
 
@@ -14,5 +14,3 @@ function LasersFeelingsSheet() {
 }
 
 export default LasersFeelingsSheet;
-
-// TODO: Import card with @components path alias

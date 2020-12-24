@@ -1,5 +1,5 @@
-import TheHeader from "./components/TheHeader";
-import LasersFeelingsSheet from "./pages/LasersFeelingsSheet";
+import TheHeader from "@components/TheHeader";
+import LasersFeelingsSheet from "@pages/LasersFeelingsSheet";
 
 import './App.css';
 
@@ -13,5 +13,3 @@ function App() {
 }
 
 export default App;
-
-// TODO: Import card with @components and @pages path aliases
