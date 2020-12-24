@@ -1,11 +1,17 @@
+import TheHeader from "./components/TheHeader";
+import LasersFeelingsSheet from "./pages/LasersFeelingsSheet";
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <p>Hello World</p>
-    </div>
+    <>
+      <TheHeader title="Criação de fichas de RPG de Lasers &amp; Sentimentos"/>
+      <LasersFeelingsSheet />
+    </>
   );
 }
 
 export default App;
+
+// TODO: Import card with @components and @pages path aliases
