@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as S from './styles.js';
 
-function TheFooter({ navLinks, title }) {
+function TheFooter() {
   return (
     <S.Footer>
       <p>Todos os direitos reservados a seus respectivos donos</p>

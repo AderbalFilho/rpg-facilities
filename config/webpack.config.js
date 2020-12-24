@@ -328,6 +328,7 @@ module.exports = function (webpackEnv) {
         // Path alias
         '@components': path.resolve(__dirname, '../src/components/'),
         '@pages': path.resolve(__dirname, '../src/pages/'),
+        '@constants': path.resolve(__dirname, '../src/constants/'),
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           'react-dom$': 'react-dom/profiling',
