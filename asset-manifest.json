@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/rpg-facilities/static/css/main.ea1455b2.chunk.css",
+    "main.js": "/rpg-facilities/static/js/main.d0b3b3bd.chunk.js",
+    "main.js.map": "/rpg-facilities/static/js/main.d0b3b3bd.chunk.js.map",
+    "runtime-main.js": "/rpg-facilities/static/js/runtime-main.75783afd.js",
+    "runtime-main.js.map": "/rpg-facilities/static/js/runtime-main.75783afd.js.map",
+    "static/js/2.1acfdcc6.chunk.js": "/rpg-facilities/static/js/2.1acfdcc6.chunk.js",
+    "static/js/2.1acfdcc6.chunk.js.map": "/rpg-facilities/static/js/2.1acfdcc6.chunk.js.map",
+    "static/js/3.7f4f7ce5.chunk.js": "/rpg-facilities/static/js/3.7f4f7ce5.chunk.js",
+    "static/js/3.7f4f7ce5.chunk.js.map": "/rpg-facilities/static/js/3.7f4f7ce5.chunk.js.map",
+    "index.html": "/rpg-facilities/index.html",
+    "static/css/main.ea1455b2.chunk.css.map": "/rpg-facilities/static/css/main.ea1455b2.chunk.css.map",
+    "static/js/2.1acfdcc6.chunk.js.LICENSE.txt": "/rpg-facilities/static/js/2.1acfdcc6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.75783afd.js",
+    "static/js/2.1acfdcc6.chunk.js",
+    "static/css/main.ea1455b2.chunk.css",
+    "static/js/main.d0b3b3bd.chunk.js"
+  ]
+}
