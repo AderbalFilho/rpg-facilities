@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 import {
   Button,
   Classes,
@@ -30,7 +31,12 @@ function HandleLasersFeelingSheet({ addCharacter, close, isOpen, sheet }) {
   function handleSubmit(e) {
     e.preventDefault();
     addCharacter(character);
-    setCharacter(defaultLasersFeelingsSheet);
+
+    const newCharacter = JSON.parse(JSON.stringify(defaultLasersFeelingsSheet));
+
+    newCharacter.id = uuid();
+    setCharacter(newCharacter);
+
     close();
   }
 

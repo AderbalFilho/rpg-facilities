@@ -19,7 +19,7 @@ function LasersFeelingsSheet() {
     <S.ContainerBody>
       {
         sheets.map(sheet => {
-          return <LasersFeelingsCard key={sheet.characterName} sheet={sheet} />
+          return <LasersFeelingsCard key={sheet.id} sheet={sheet} />
         })
       }
       <AddLaserFeelingSheet addCharacter={addCharacter} />
