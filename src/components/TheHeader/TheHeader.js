@@ -27,7 +27,7 @@ function TheHeader({ navLinks, title }) {
 }
 
 TheHeader.defaultProps = {
-  navLinks: [{ name: 'Home', icon: 'home', link: '/' }],
+  navLinks: [],
   title: ''
 };
 
