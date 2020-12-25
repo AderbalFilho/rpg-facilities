@@ -6,10 +6,10 @@ import LasersFeelingsSheet from "@pages/LasersFeelingsSheet";
 const Routes = () => (
   <Router>
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/lasers-feelings" />
+      <Route exact path="/rpg-facilities/">
+        <Redirect to="/rpg-facilities/lasers-feelings" />
       </Route>
-      <Route path="/lasers-feelings" component={LasersFeelingsSheet} />
+      <Route path="/rpg-facilities/lasers-feelings" component={LasersFeelingsSheet} />
     </Switch>
   </Router>
 );
