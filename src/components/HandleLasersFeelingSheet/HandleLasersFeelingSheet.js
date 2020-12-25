@@ -30,6 +30,7 @@ function HandleLasersFeelingSheet({ addCharacter, close, isOpen, sheet }) {
   function handleSubmit(e) {
     e.preventDefault();
     addCharacter(character);
+    setCharacter(defaultLasersFeelingsSheet);
     close();
   }
 
