@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Elevation } from "@blueprintjs/core";
 
-import defaultLasersFeelingsSheet from '@constants';
-
 import * as S from './styles.js';
 
 function LasersFeelingsCard({ sheet }) {
@@ -13,29 +11,25 @@ function LasersFeelingsCard({ sheet }) {
     style,
     concept,
     number,
-    objective,
+    characterObjective,
   } = sheet;
 
   return (
     <Card interactive={true} elevation={Elevation.TWO}>
       <S.CharacterName>{characterName || 'Nome do personagem'}</S.CharacterName>
       <S.TheDivider />
-      <p>{`Jogador: ${playerName}`}</p>
-      <p>{`Estilo: ${style}`}</p>
-      <p>{`Papel: ${concept}`}</p>
-      <p>{`Número: ${number}`}</p>
-      <p>Objetivo do personagem:</p>
-      <p>{objective}</p>
+      <p><strong>Jogador:</strong> {playerName}</p>
+      <p><strong>Estilo:</strong> {style}</p>
+      <p><strong>Papel:</strong> {concept}</p>
+      <p><strong>Número:</strong> {number}</p>
+      <p><strong>Objetivo do personagem:</strong></p>
+      <p>{characterObjective}</p>
     </Card>
   );
 }
 
-LasersFeelingsCard.defaultProps = {
-  sheet: defaultLasersFeelingsSheet
-};
-
 LasersFeelingsCard.propTypes = {
-  sheet: PropTypes.object,
+  sheet: PropTypes.object.isRequired,
 };
 
 export default LasersFeelingsCard;

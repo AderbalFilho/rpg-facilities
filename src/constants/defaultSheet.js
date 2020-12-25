@@ -1,10 +1,10 @@
 const defaultLasersFeelingsSheet = {
-  characterName: 'Nome do personagem',
+  characterName: '',
   playerName: '',
   style: '',
   concept: '',
   number: '',
-  objective: ''
+  characterObjective: ''
 };
 
 export default defaultLasersFeelingsSheet;

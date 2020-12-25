@@ -1,14 +1,19 @@
-import React from 'react'; // , { useState }
+import React, { useState } from 'react';
 
 import LasersFeelingsCard from '@components/LasersFeelingsCard';
-import AddCard from '@components/AddCard';
-import defaultLasersFeelingsSheet from '@constants';
+import AddLaserFeelingSheet from '@components/AddLaserFeelingSheet';
 
 import * as S from './styles.js';
 
 function LasersFeelingsSheet() {
-  // const [sheets, setSheets] = useState([defaultLasersFeelingsSheet]);
-  const sheets = [defaultLasersFeelingsSheet];
+  const [sheets, setSheets] = useState([]);
+
+  function addCharacter(character) {
+    const newSheets = JSON.parse(JSON.stringify(sheets));
+
+    newSheets.push(character);
+    setSheets(newSheets);
+  }
 
   return (
     <S.ContainerBody>
@@ -17,7 +22,7 @@ function LasersFeelingsSheet() {
           return <LasersFeelingsCard key={sheet.characterName} sheet={sheet} />
         })
       }
-      <AddCard />
+      <AddLaserFeelingSheet addCharacter={addCharacter} />
     </S.ContainerBody>
   );
 }
