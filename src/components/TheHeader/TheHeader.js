@@ -1,33 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Alignment, Button, Navbar } from '@blueprintjs/core';
+
 import * as S from './styles.js';
 
 function TheHeader({ navLinks, title }) {
   return (
-    <nav className="bp3-navbar bp3-dark">
+    <Navbar className="bp3-dark">
       <S.NavContainer>
-        <div className="bp3-navbar-group bp3-align-left">
-          <div className="bp3-navbar-heading">{title}</div>
-        </div>
-        <div className="bp3-navbar-group bp3-align-right">
+        <Navbar.Group align={Alignment.LEFT}>
+          <Navbar.Heading>{title}</Navbar.Heading>
+        </Navbar.Group>
+        <Navbar.Group align={Alignment.RIGHT}>
           {
             navLinks.map(navLink => {
               return (
-                <button
-                  key={navLink.name}
-                  className={
-                    navLink.icon ? `bp3-button bp3-minimal bp3-icon-${navLink.icon}` : 'bp3-button bp3-minimal'
-                  }
-                >
-                  {navLink.name}
-                </button>
+                <Button key={navLink.name} className="bp3-minimal" icon={navLink.icon} text={navLink.name} />
               )
             })
           }
-        </div>
+        </Navbar.Group>
       </S.NavContainer>
-    </nav>
+    </Navbar>
   );
 }
 
