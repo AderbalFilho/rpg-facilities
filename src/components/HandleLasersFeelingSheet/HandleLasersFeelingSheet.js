@@ -11,32 +11,39 @@ import {
   TextArea,
 } from "@blueprintjs/core";
 
-import defaultLasersFeelingsSheet from "@constants/defaultSheet.js";
+import { DEFAULT_LASERS_FEELINGS_FIELDS, DEFAULT_LASERS_FEELINGS_SHEET } from "@constants";
 
-// import * as S from "./styles.js";
-
-function HandleLasersFeelingSheet({ addCharacter, close, isOpen, sheet }) {
-  const [character, setCharacter] = useState(sheet || defaultLasersFeelingsSheet);
+function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditing, isOpen, sheet }) {
+  const [character, setCharacter] = useState(DEFAULT_LASERS_FEELINGS_SHEET);
+  // It takes a while to sheet being updated, so this was necessary
+  const [beginEdit, setBeginEdit] = useState(false);
 
   function handleClose() {
     close();
   }
 
   function handleOnChange({ id, value }) {
-    const modifiedCharacter = JSON.parse(JSON.stringify(character));
+    const modifiedCharacter = JSON.parse(JSON.stringify(beginEdit ? character : sheet));
+    setBeginEdit(true);
     modifiedCharacter[id] = value;
     setCharacter(modifiedCharacter);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    addCharacter(character);
 
-    const newCharacter = JSON.parse(JSON.stringify(defaultLasersFeelingsSheet));
+    if (isEditing) {
+      editCharacter(character);
+    } else {
+      addCharacter(character);
+    }
+
+    const newCharacter = JSON.parse(JSON.stringify(DEFAULT_LASERS_FEELINGS_SHEET));
 
     newCharacter.id = uuid();
     setCharacter(newCharacter);
 
+    setBeginEdit(false);
     close();
   }
 
@@ -44,72 +51,74 @@ function HandleLasersFeelingSheet({ addCharacter, close, isOpen, sheet }) {
     <>
       <Dialog
         isOpen={isOpen}
-        icon="add"
-        title="Crie seu personagem"
-        autoFocus={true}
-        enforceFocus={true}
-        usePortal={true}
+        icon={isEditing ? 'edit' : 'add'}
+        title={`${isEditing ? 'Edite' : 'Crie'} seu personagem`}
+        autoFocus
+        enforceFocus
+        usePortal
         canEscapeKeyClose={false}
         canOutsideClickClose={false}
         onClose={handleClose}
       >
         <form onSubmit={handleSubmit}>
           <div className={Classes.DIALOG_BODY}>
-            <FormGroup
-              label="Nome do personagem"
-              labelFor="characterName"
-            >
-              <InputGroup id="characterName" onChange={e=>handleOnChange(e.target)} placeholder="Ex.: Faísca da Silva" />
-            </FormGroup>
-            <FormGroup
-              label="Nome do jogador"
-              labelFor="playerName"
-            >
-              <InputGroup id="playerName" onChange={e=>handleOnChange(e.target)} placeholder="Escreva seu nome ou o nome do jogador" />
-            </FormGroup>
-            <FormGroup
-              label="Estilo"
-              labelFor="style"
-            >
-              <InputGroup id="style" onChange={e=>handleOnChange(e.target)} placeholder="Ex.: Alienígena" />
-            </FormGroup>
-            <FormGroup
-              label="Papel"
-              labelFor="concept"
-            >
-              <InputGroup id="concept" onChange={e=>handleOnChange(e.target)} placeholder="Ex.: Cientista" />
-            </FormGroup>
-            <FormGroup
-              label="Número"
-              labelFor="number"
-            >
-              <NumericInput
-                id="number"
-                onValueChange={e=>handleOnChange({ id: 'number', value: e })}
-                allowNumericCharactersOnly={true}
-                fill={true}
-                min="2"
-                max="5"
-                placeholder="Escolha seu número de 2 a 5"
-              />
-            </FormGroup>
-            <FormGroup
-              label="Objetivo do personagem"
-              labelFor="characterObjective"
-            >
-              <TextArea
-                id="characterObjective"
-                onChange={e=>handleOnChange(e.target)}
-                growVertically={true}
-                fill={true}
-                placeholder="Ex.: Tornar-se capitão"
-              />
-            </FormGroup>
+            {
+              DEFAULT_LASERS_FEELINGS_FIELDS.map(field => {
+                return (
+                  field.type === 'text' ?
+                    <FormGroup
+                      key={field.id}
+                      label={field.label}
+                      labelFor={field.id}
+                    >
+                      <InputGroup
+                        id={field.id}
+                        defaultValue={(sheet && sheet[field.id]) || ''}
+                        onChange={e=>handleOnChange(e.target)}
+                        placeholder={field.placeholder}
+                      />
+                    </FormGroup>
+                  : field.type === 'number' ?
+                    <FormGroup
+                      key={field.id}
+                      label={field.label}
+                      labelFor={field.id}
+                    >
+                      <NumericInput
+                        id={field.id}
+                        defaultValue={(sheet && sheet[field.id]) || ''}
+                        onValueChange={e=>handleOnChange({ id: field.id, value: e })}
+                        allowNumericCharactersOnly
+                        fill
+                        min={field.min}
+                        max={field.max}
+                        placeholder={field.placeholder}
+                      />
+                    </FormGroup>
+                  : field.type === 'textarea' ?
+                    <FormGroup
+                      key={field.id}
+                      label={field.label}
+                      labelFor={field.id}
+                    >
+                      <TextArea
+                        id={field.id}
+                        defaultValue={(sheet && sheet[field.id]) || ''}
+                        onChange={e=>handleOnChange(e.target)}
+                        growVertically
+                        fill
+                        placeholder={field.placeholder}
+                      />
+                    </FormGroup>
+                  : null
+                )
+              })
+            }
           </div>
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>
               <Button onClick={handleClose}>Cancelar</Button>
-              <Button type="submit" intent="success">Adicionar</Button>
+              <Button type="submit" intent="success">{isEditing ? 'Atualizar' : 'Adicionar'}</Button>
             </div>
           </div>
         </form>
@@ -119,13 +128,18 @@ function HandleLasersFeelingSheet({ addCharacter, close, isOpen, sheet }) {
 }
 
 HandleLasersFeelingSheet.defaultProps = {
-  sheet: defaultLasersFeelingsSheet,
+  addCharacter: () => {},
+  editCharacter: () => {},
+  isEditing: false,
+  sheet: DEFAULT_LASERS_FEELINGS_SHEET,
 };
 
 HandleLasersFeelingSheet.propTypes = {
   addCharacter: PropTypes.func,
   close: PropTypes.func.isRequired,
+  editCharacter: PropTypes.func,
   isOpen: PropTypes.bool.isRequired,
+  isEditing: PropTypes.bool,
   sheet: PropTypes.object,
 };
 

@@ -1,6 +1,6 @@
 import uuid from 'react-uuid';
 
-const defaultLasersFeelingsSheet = {
+export const DEFAULT_LASERS_FEELINGS_SHEET = {
   id: uuid(),
   characterName: '',
   playerName: '',
@@ -9,5 +9,3 @@ const defaultLasersFeelingsSheet = {
   number: '',
   characterObjective: ''
 };
-
-export default defaultLasersFeelingsSheet;

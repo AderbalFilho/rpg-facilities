@@ -4,7 +4,7 @@ import { Card, Elevation } from "@blueprintjs/core";
 
 import * as S from './styles.js';
 
-function LasersFeelingsCard({ sheet }) {
+function LasersFeelingsCard({ handleOpen, sheet }) {
   const {
     characterName,
     playerName,
@@ -15,7 +15,7 @@ function LasersFeelingsCard({ sheet }) {
   } = sheet;
 
   return (
-    <Card interactive={true} elevation={Elevation.TWO}>
+    <Card interactive elevation={Elevation.TWO} onClick={() => handleOpen(sheet)}>
       <S.CharacterName>{characterName || 'Nome do personagem'}</S.CharacterName>
       <S.TheDivider />
       <p><strong>Jogador:</strong> {playerName}</p>
@@ -29,6 +29,7 @@ function LasersFeelingsCard({ sheet }) {
 }
 
 LasersFeelingsCard.propTypes = {
+  handleOpen: PropTypes.func.isRequired,
   sheet: PropTypes.object.isRequired,
 };
 

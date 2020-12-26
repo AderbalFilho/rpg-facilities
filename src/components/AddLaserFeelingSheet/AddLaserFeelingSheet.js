@@ -22,7 +22,7 @@ function AddLaserFeelingSheet({ addCharacter }) {
 
   return (
     <>
-      <S.AddCharacterCard onClick={handleOpen} interactive={true} elevation={Elevation.TWO}>
+      <S.AddCharacterCard onClick={handleOpen} interactive elevation={Elevation.TWO}>
         <Icon icon="add" iconSize={48} />
         <S.AddCharacterLabel>Adicionar Personagem</S.AddCharacterLabel>
       </S.AddCharacterCard>
