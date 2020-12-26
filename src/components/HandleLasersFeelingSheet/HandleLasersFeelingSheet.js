@@ -23,7 +23,7 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
   }
 
   function handleOnChange({ id, value }) {
-    const modifiedCharacter = JSON.parse(JSON.stringify(beginEdit ? character : sheet));
+    const modifiedCharacter = JSON.parse(JSON.stringify(beginEdit || !isEditing ? character : sheet));
     setBeginEdit(true);
     modifiedCharacter[id] = value;
     setCharacter(modifiedCharacter);
