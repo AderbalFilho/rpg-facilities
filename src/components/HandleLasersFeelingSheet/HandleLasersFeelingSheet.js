@@ -13,7 +13,7 @@ import {
 
 import { DEFAULT_LASERS_FEELINGS_FIELDS, DEFAULT_LASERS_FEELINGS_SHEET } from "@constants";
 
-function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditing, isOpen, sheet }) {
+function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditing, isOpen, removeCharacter, sheet }) {
   const [character, setCharacter] = useState(DEFAULT_LASERS_FEELINGS_SHEET);
   // It takes a while to sheet being updated, so this was necessary
   const [beginEdit, setBeginEdit] = useState(false);
@@ -27,6 +27,11 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
     setBeginEdit(true);
     modifiedCharacter[id] = value;
     setCharacter(modifiedCharacter);
+  }
+
+  function handleDelete() {
+    removeCharacter(sheet.id);
+    handleClose();
   }
 
   function handleSubmit(e) {
@@ -118,6 +123,7 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>
               <Button onClick={handleClose}>Cancelar</Button>
+              {isEditing ? <Button type="button" onClick={() => handleDelete()} intent="danger">Remover</Button> : null}
               <Button type="submit" intent="success">{isEditing ? 'Atualizar' : 'Adicionar'}</Button>
             </div>
           </div>
@@ -131,6 +137,7 @@ HandleLasersFeelingSheet.defaultProps = {
   addCharacter: () => {},
   editCharacter: () => {},
   isEditing: false,
+  removeCharacter: () => {},
   sheet: DEFAULT_LASERS_FEELINGS_SHEET,
 };
 
@@ -140,6 +147,7 @@ HandleLasersFeelingSheet.propTypes = {
   editCharacter: PropTypes.func,
   isOpen: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool,
+  removeCharacter: PropTypes.func,
   sheet: PropTypes.object,
 };
 

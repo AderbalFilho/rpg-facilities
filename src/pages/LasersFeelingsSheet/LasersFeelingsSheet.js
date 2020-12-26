@@ -18,11 +18,23 @@ function LasersFeelingsSheet() {
     setSheets(newSheets);
   }
 
+  function findCharacterIndex(id) {
+    return sheets.findIndex((sheet => sheet.id === id));
+  }
+
   function editCharacter(character) {
-    const characterIndex = sheets.findIndex((sheet => sheet.id === editingCharacter.id));
+    const characterIndex = findCharacterIndex(editingCharacter.id);
     const newSheets = JSON.parse(JSON.stringify(sheets));
 
     newSheets[characterIndex] = character;
+    setSheets(newSheets);
+  }
+
+  function removeCharacter(id) {
+    const characterIndex = findCharacterIndex(id);
+    let newSheets = JSON.parse(JSON.stringify(sheets));
+
+    newSheets.splice(characterIndex, 1);
     setSheets(newSheets);
   }
 
@@ -48,6 +60,7 @@ function LasersFeelingsSheet() {
         sheet={editingCharacter}
         isEditing
         editCharacter={editCharacter}
+        removeCharacter={removeCharacter}
         close={handleClose}
       />
     </S.ContainerBody>
