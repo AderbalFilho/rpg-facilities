@@ -75,7 +75,7 @@ function LasersFeelingsSheet() {
     }
 
     setSheets(newSheets);
-    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Ficha apagada', timeout: 2000 });
+    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Ficha apagada!', timeout: 2000 });
     setIsOpenDeleteConfirmation(false);
   }
 
@@ -86,7 +86,7 @@ function LasersFeelingsSheet() {
 
     setSheets([]);
     setIsOpenClearConfirmation(false);
-    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Fichas apagadas', timeout: 2000 });
+    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Fichas apagadas!', timeout: 2000 });
   }
 
   function handleOpen(character) {

@@ -7,8 +7,10 @@ import {
   Dialog,
   FormGroup,
   InputGroup,
+  Intent,
   NumericInput,
   TextArea,
+  Toaster,
 } from "@blueprintjs/core";
 
 import { DEFAULT_LASERS_FEELINGS_FIELDS, DEFAULT_LASERS_FEELINGS_SHEET } from "@constants";
@@ -17,6 +19,7 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
   const [character, setCharacter] = useState(DEFAULT_LASERS_FEELINGS_SHEET);
   // It takes a while to sheet being updated, so this was necessary
   const [beginEdit, setBeginEdit] = useState(false);
+  const [toaster, setToaster] = useState(null);
 
   function handleClose() {
     close();
@@ -36,6 +39,10 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (![2, 3, 4, 5].includes(character.number)) {
+      toaster.show({ icon: 'warning-sign', intent: Intent.DANGER, message: 'Digite um número de 2 a 5!', timeout: 2000 });
+      return;
+    }
 
     if (isEditing) {
       editCharacter(character);
@@ -129,6 +136,7 @@ function HandleLasersFeelingSheet({ addCharacter, close, editCharacter, isEditin
           </div>
         </form>
       </Dialog>
+      <Toaster ref={ref => setToaster(ref)} />
     </>
   );
 }
