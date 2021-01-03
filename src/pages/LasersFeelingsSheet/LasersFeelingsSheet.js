@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@blueprintjs/core';
+import { Button, Intent, Toaster } from '@blueprintjs/core';
 
 import LasersFeelingsCard from '@components/LasersFeelingsCard';
 import AddLaserFeelingSheet from '@components/AddLaserFeelingSheet';
 import HandleLasersFeelingSheet from '@components/HandleLasersFeelingSheet';
+import DeleteConfirmation from '@components/DeleteConfirmation';
 import { isLocalStorageAvailable } from '@helpers';
 
 import * as S from './styles.js';
 
 function LasersFeelingsSheet() {
   const [sheets, setSheets] = useState([]);
+  const [isOpenClearConfirmation, setIsOpenClearConfirmation] = useState(false);
+  const [isOpenDeleteConfirmation, setIsOpenDeleteConfirmation] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [toaster, setToaster] = useState(null);
   const [editingCharacter, setEditingCharacter] = useState(null);
   const localStorageKey = 'lasers-feelings-sheets';
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,8 +59,13 @@ function LasersFeelingsSheet() {
     setSheets(newSheets);
   }
 
-  function removeCharacter(id) {
-    const characterIndex = findCharacterIndex(id);
+  function onRemoveCharacter(id) {
+    setDeleteId(id);
+    setIsOpenDeleteConfirmation(true);
+  }
+
+  function removeCharacter() {
+    const characterIndex = findCharacterIndex(deleteId);
     let newSheets = JSON.parse(JSON.stringify(sheets));
 
     newSheets.splice(characterIndex, 1);
@@ -65,6 +75,8 @@ function LasersFeelingsSheet() {
     }
 
     setSheets(newSheets);
+    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Ficha apagada', timeout: 2000 });
+    setIsOpenDeleteConfirmation(false);
   }
 
   function clearSheets() {
@@ -73,6 +85,8 @@ function LasersFeelingsSheet() {
     }
 
     setSheets([]);
+    setIsOpenClearConfirmation(false);
+    toaster.show({ icon: 'tick', intent: Intent.SUCCESS, message: 'Fichas apagadas', timeout: 2000 });
   }
 
   function handleOpen(character) {
@@ -87,7 +101,7 @@ function LasersFeelingsSheet() {
   return (
     <S.ContainerBody>
       <S.ButtonContainer>
-        <Button intent="danger" onClick={clearSheets}>Apagar tudo</Button>
+        <Button intent="danger" disabled={!sheets.length} onClick={() => setIsOpenClearConfirmation(true)}>Apagar tudo</Button>
       </S.ButtonContainer>
       <S.SheetsContainer>
         {
@@ -101,10 +115,17 @@ function LasersFeelingsSheet() {
           sheet={editingCharacter}
           isEditing
           editCharacter={editCharacter}
-          removeCharacter={removeCharacter}
+          removeCharacter={onRemoveCharacter}
           close={handleClose}
         />
       </S.SheetsContainer>
+      <DeleteConfirmation isOpen={isOpenClearConfirmation} handleCancel={() => setIsOpenClearConfirmation(false)} handleDelete={clearSheets}>
+        <p>Tem certeza que deseja apagar todas as fichas?</p>
+      </DeleteConfirmation>
+      <DeleteConfirmation isOpen={isOpenDeleteConfirmation} handleCancel={() => setIsOpenDeleteConfirmation(false)} handleDelete={removeCharacter}>
+        <p>Tem certeza que deseja apagar?</p>
+      </DeleteConfirmation>
+      <Toaster ref={ref => setToaster(ref)} />
     </S.ContainerBody>
   );
 }
